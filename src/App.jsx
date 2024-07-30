@@ -1,6 +1,6 @@
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import Highlight from "./components/Highlight";
+import Highlights from "./components/Highlights";
 
 
 const App = () => {
@@ -8,7 +8,7 @@ const App = () => {
     <main>
       <Navbar />
       <Home />
-      <Highlight />
+      <Highlights />
     </main>
   );
 };
