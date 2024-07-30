@@ -9,6 +9,7 @@ import {
   yellowImg,
 } from "../utils";
 
+//navList'i çekip kullandık, bu kullanımlar proje boyu devam edecek.
 export const navLists = ["Store", "Mac", "iPhone", "Support"];
 
 export const hightlightsSlides = [
