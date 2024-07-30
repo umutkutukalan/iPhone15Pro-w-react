@@ -2,7 +2,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { heroVideo, smallHeroVideo } from "../utils";
 import { useEffect, useState } from "react";
-const Home = () => {
+const Hero = () => {
   const [videoSrc, setvideoSrc] = useState(
     window.innerWidth < 760 ? smallHeroVideo : heroVideo
   );
@@ -52,7 +52,7 @@ const Home = () => {
           id="cta"
           className="flex flex-col items-center opacity-0 translate-y-20"
         >
-          <a href="'highligths" className="btn">Buy</a>
+          <a href="#highlights" className="btn">Buy</a>
           <p className="font-normal text-xl">From $199 month or $999</p>
         </div>
       </div>
@@ -60,4 +60,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Hero;
