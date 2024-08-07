@@ -9,6 +9,8 @@ const VideoCarousel = () => {
   // videoRefs(videoRef, SpanRef, DivRef)
 
   const videoRef = useRef([]);
+  const videoSpanRef = useRef([]);
+  const videoDivRef = useRef([]);
 
   // video and setVideo
   const [video, setvideo] = useState({
@@ -23,8 +25,13 @@ const VideoCarousel = () => {
   //LoadedData and seLoadedData (array)
   const [loadedData, setloadedData] = useState([]);
 
-  // GSAP (#video)
+  // GSAP (#video, #slider)
   useGSAP(() => {
+    gsap.to("#slider", {
+      transform: `translate(${-100 * videoId}%)`,
+      duration: 2,
+      ease: "power2.inOut",
+    });
     gsap.to("#video", {
       scrollTrigger: {
         trigger: "#video",
@@ -106,6 +113,11 @@ const VideoCarousel = () => {
                   preload="auto"
                   muted
                   ref={(el) => (videoRef.current[i] = el)}
+                  onEnded={() =>
+                    i !== 3
+                      ? handleProcess("video-end", i)
+                      : handleProcess("video-last")
+                  }
                   onPlay={() =>
                     setvideo((prev) => ({
                       ...prev,
@@ -135,7 +147,9 @@ const VideoCarousel = () => {
               key={i}
               className="w-3 h-3 mx-2 bg-gray-200 rounded-full cursor-pointer relative"
             >
-              <span className="w-full h-full rounded-full absolute" />
+              <span
+                className="w-full h-full rounded-full absolute"
+              />
             </span>
           ))}
         </div>
