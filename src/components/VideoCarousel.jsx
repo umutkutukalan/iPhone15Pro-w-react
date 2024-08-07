@@ -58,6 +58,58 @@ const VideoCarousel = () => {
     }
   }, [videoId, startPlay, isPlaying, loadedData]);
 
+  //divRef-spanRef | currentProgress | span
+  useEffect(() => {
+    let currentProgress = 0;
+    let span = videoSpanRef.current;
+    if (span[videoId]) {
+      let anim = gsap.to(span[videoId], {
+        onUpdate: () => {
+          const progress = Math.ceil(anim.progress() * 100);
+          if (progress !== currentProgress) {
+            currentProgress = progress;
+            gsap.to(videoDivRef.current[videoId], {
+              width:
+                window.innerWidth < 720
+                  ? "10vw"
+                  : window.innerWidth < 1200
+                  ? "10vw"
+                  : "4vw",
+            });
+            gsap.to(span[videoId], {
+              width: `${currentProgress}%`,
+              backgroundColor: "white",
+            });
+          }
+        },
+        onComplete: () => {
+          if (isPlaying) {
+            gsap.to(videoDivRef.current[videoId], {
+              width: "12px",
+            });
+            gsap.to(span[videoId], {
+              backgroundColor: "#afafaf",
+            });
+          }
+        },
+      });
+      if (videoId === 0) {
+        anim.restart();
+      }
+      const animUpdate = () => {
+        anim.progress(
+          videoRef.current[videoId].currentTime /
+            hightlightsSlides[videoId].videoDuration
+        );
+      };
+      if (isPlaying) {
+        gsap.ticker.add(animUpdate);
+      } else {
+        gsap.ticker.remove(animUpdate);
+      }
+    }
+  }, [videoId, startPlay]);
+
   const handleLoadedMetaData = (i, e) => setloadedData((prev) => [...prev, e]);
   //handleProcess
   const handleProcess = (type, i) => {
@@ -145,9 +197,11 @@ const VideoCarousel = () => {
           {videoRef.current.map((_, i) => (
             <span
               key={i}
+              ref={(el) => (videoDivRef.current[i] = el)}
               className="w-3 h-3 mx-2 bg-gray-200 rounded-full cursor-pointer relative"
             >
               <span
+                ref={(el) => (videoSpanRef.current[i] = el)}
                 className="w-full h-full rounded-full absolute"
               />
             </span>
