@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 gsap.registerPlugin(ScrollTrigger);
 import gsap from "gsap";
+import { pauseImg, playImg, replayImg } from "../utils";
 const VideoCarousel = () => {
   // videoRefs(videoRef, SpanRef, DivRef)
 
@@ -51,8 +52,47 @@ const VideoCarousel = () => {
   }, [videoId, startPlay, isPlaying, loadedData]);
 
   const handleLoadedMetaData = (i, e) => setloadedData((prev) => [...prev, e]);
+  //handleProcess
+  const handleProcess = (type, i) => {
+    switch (type) {
+      case "video-end":
+        setvideo((prev) => ({
+          ...prev,
+          isEnd: true,
+          videoId: i + 1,
+        }));
+        break;
+      case "video-last":
+        setvideo((prev) => ({
+          ...prev,
+          isLastVideo: true,
+        }));
+        break;
+      case "video-reset":
+        setvideo((prev) => ({
+          ...prev,
+          isLastVideo: false,
+          videoId: 0,
+        }));
+        break;
+      case "play":
+        setvideo((prev) => ({
+          ...prev,
+          isPlaying: !prev.isPlaying,
+        }));
+        break;
+      case "pause":
+        setvideo((prev) => ({
+          ...prev,
+          isPlaying: !prev.isPlaying,
+        }));
+        break;
 
-  
+      default:
+        return video;
+    }
+  };
+
   return (
     <>
       <div className="flex align-items">
@@ -87,6 +127,31 @@ const VideoCarousel = () => {
             </div>
           </div>
         ))}
+      </div>
+      <div className="flex-center mt-10 relative">
+        <div className="py-5 px-7 rounded-full bg-gray-300 backdrop-blur flex-center">
+          {videoRef.current.map((_, i) => (
+            <span
+              key={i}
+              className="w-3 h-3 mx-2 bg-gray-200 rounded-full cursor-pointer relative"
+            >
+              <span className="w-full h-full rounded-full absolute" />
+            </span>
+          ))}
+        </div>
+        <button className="control-btn">
+          <img
+            src={isLastVideo ? replayImg : !isPlaying ? playImg : pauseImg}
+            alt={isLastVideo ? "replay" : !isPlaying ? "play" : "pause"}
+            onClick={
+              isLastVideo
+                ? () => handleProcess("video-reset")
+                : !isPlaying
+                ? () => handleProcess("play")
+                : () => handleProcess("pause")
+            }
+          />
+        </button>
       </div>
     </>
   );
