@@ -28,7 +28,7 @@ const VideoCarousel = () => {
   // GSAP (#video, #slider)
   useGSAP(() => {
     gsap.to("#slider", {
-      transform: `translate(${-100 * videoId}%)`,
+      transform: `translateX(${-100 * videoId}%)`,
       duration: 2,
       ease: "power2.inOut",
     });
@@ -164,6 +164,9 @@ const VideoCarousel = () => {
                   playsInline={true}
                   preload="auto"
                   muted
+                  className={`${
+                    list.id === 2 && "translate-x-44"
+                  } cursor-pointers-none`}
                   ref={(el) => (videoRef.current[i] = el)}
                   onEnded={() =>
                     i !== 3
