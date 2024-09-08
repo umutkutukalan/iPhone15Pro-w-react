@@ -30,7 +30,7 @@ function Model(props) {
     });
   }, [materials, props.item]);
 
-
+  
   return (
     <group {...props} dispose={null}>
       <mesh
