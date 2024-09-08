@@ -1,49 +1,66 @@
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
+import React, { useEffect, useRef, useState } from "react";
 import ModelView from "./ModelView";
-import { Canvas } from "@react-three/fiber";
-import { View } from "@react-three/drei";
 import * as THREE from "three";
-import { useRef, useState } from "react";
-import { yellowImg } from "../utils";
+import { Canvas } from "@react-three/fiber";
 import { models, sizes } from "../constants";
+import { yellowImg } from "../utils";
+import { View } from "@react-three/drei";
+import { animateWithGsapTimeline } from "../utils/animations";
 
 const Model = () => {
+  const [size, setSize] = useState("small");
   const [model, setModel] = useState({
+    id: 1,
     title: "iPhone 15 Pro in Natural Titanium",
-    color: ["#8F8A81", "#FFE7B9", "#6F6C64"],
+    color: ["#8F8A81", "#ffe7b9", "#6f6c64"],
     img: yellowImg,
   });
-  const [size, setSize] = useState("small");
 
-  //model
   const small = useRef(new THREE.Group());
   const large = useRef(new THREE.Group());
 
-  //camera
   const cameraControlSmall = useRef();
   const cameraControlLarge = useRef();
 
-  //rotation
   const [smallRotation, setSmallRotation] = useState(0);
   const [largeRotation, setLargeRotation] = useState(0);
+
+  const tl = gsap.timeline();
+
+  useEffect(() => {
+    if (size === "large") {
+      animateWithGsapTimeline(tl, small, smallRotation, "#view1", "#view2", {
+        transform: "translateX(-100%)",
+        duration: 2,
+      });
+    }
+    if (size === "small") {
+      animateWithGsapTimeline(tl, large, largeRotation, "#view2", "#view1", {
+        transform: "translateX(0)",
+        duration: 2,
+      });
+    }
+  }, [size]);
 
   useGSAP(() => {
     gsap.to("#heading", {
       opacity: 1,
-      y: 0,
+      translateY: 0,
     });
   });
+
   return (
     <section className="common-padding">
       <div className="screen-max-width">
-        <p id="heading" className="section-heading">
+        <h1 id="heading" className="section-heading">
           Take a closer look.
-        </p>
-        <div className="flex flex-col items-center overflow-hidden relative">
-          <div className="w-full h-[75vh] md:h-[90vh]">
+        </h1>
+        <div className="flex flex-col items-center">
+          <div className="w-full h-[75vh] md:h-[90vh] relative">
             <ModelView
-              id={1}
+              index={1}
               groupRef={small}
               gsapType="view1"
               controlRef={cameraControlSmall}
@@ -52,7 +69,7 @@ const Model = () => {
               size={size}
             />
             <ModelView
-              id={2}
+              index={2}
               groupRef={large}
               gsapType="view2"
               controlRef={cameraControlLarge}
@@ -61,7 +78,7 @@ const Model = () => {
               size={size}
             />
             <Canvas
-              className="h-full w-full"
+              className="w-full h-full"
               style={{
                 position: "fixed",
                 top: 0,
@@ -76,35 +93,37 @@ const Model = () => {
             </Canvas>
           </div>
           <div className="mx-auto w-full">
-            <p className="text-sm font-light text-center mb-5">{model.title}</p>
+            <p className="text-sm font-light text-center mt-5 mb-2">
+              {model.title}
+            </p>
             <div className="flex-center">
               <ul className="color-container">
                 {models.map((item, i) => (
                   <li
                     key={i}
-                    className="w-6 h-6 mx-2 rounded-full cursor-pointer"
+                    className="w-6 h-6 rounded-full mx-2 cursor-pointer"
                     style={{
-                      backgroundColor: item.color[0],
+                      background: item.color[0],
                     }}
                     onClick={() => setModel(item)}
                   ></li>
                 ))}
               </ul>
-              <button className="size-btn-container">
+              <div className="size-btn-container">
                 {sizes.map(({ label, value }) => (
-                  <span
+                  <div
                     key={label}
-                    className="size-btn"
+                    className="size-btn cursor-pointer"
                     style={{
-                      backgroundColor: size === value ? "white" : "transparent",
+                      background: size === value ? "white" : "transparent",
                       color: size === value ? "black" : "white",
                     }}
                     onClick={() => setSize(value)}
                   >
                     {label}
-                  </span>
+                  </div>
                 ))}
-              </button>
+              </div>
             </div>
           </div>
         </div>
