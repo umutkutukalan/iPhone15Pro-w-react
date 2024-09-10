@@ -57,7 +57,7 @@ const Model = () => {
         <h1 id="heading" className="section-heading">
           Take a closer look.
         </h1>
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center overflow-hidden relative">
           <div className="w-full h-[75vh] md:h-[90vh] relative">
             <ModelView
               index={1}
@@ -109,9 +109,9 @@ const Model = () => {
                   ></li>
                 ))}
               </ul>
-              <div className="size-btn-container">
+              <button className="size-btn-container">
                 {sizes.map(({ label, value }) => (
-                  <div
+                  <span
                     key={label}
                     className="size-btn cursor-pointer"
                     style={{
@@ -121,9 +121,9 @@ const Model = () => {
                     onClick={() => setSize(value)}
                   >
                     {label}
-                  </div>
+                  </span>
                 ))}
-              </div>
+              </button>
             </div>
           </div>
         </div>
