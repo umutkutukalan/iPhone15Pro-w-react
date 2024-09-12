@@ -1,7 +1,7 @@
 import { useGSAP } from "@gsap/react";
 import React, { useRef } from "react";
 import { animateWithGsap } from "../utils/animations";
-import { exploreVideo } from "../utils/index";
+import { explore1Img, explore2Img, exploreVideo } from "../utils/index";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
@@ -23,6 +23,17 @@ const Features = () => {
     animateWithGsap("#features_title", {
       opacity: 1,
       y: 0,
+    });
+    animateWithGsap(
+      ".g_grow",
+      { opacity: 1, scale: 1, ease: "power1" },
+      { scrub: 5.5 }
+    );
+    animateWithGsap(".g_text", {
+      y: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power2.inOut",
     });
   }, []);
 
@@ -57,6 +68,47 @@ const Features = () => {
             >
               <source src={exploreVideo} type="video/mp4" />
             </video>
+          </div>
+
+          <div className="flex flex-col w-full relative">
+            <div className="feature-video-container">
+              <div className="h-[50vh] flex-1 overflow-hidden">
+                <img
+                  src={explore1Img}
+                  alt="titanium"
+                  className="feature-video g_grow"
+                />
+              </div>
+              <div className="h-[50vh] flex-1 overflow-hidden">
+                <img
+                  src={explore2Img}
+                  alt="titanium2"
+                  className="feature-video g_grow"
+                />
+              </div>
+            </div>
+
+            <div className="feature-text-container">
+              <div className="flex-1 flex-center">
+                <p className="feature-text g_text">
+                  iPhone 15 Pro is{" "}
+                  <span className="text-white">
+                    the first iPhone to feature an aerospace-grade titanium
+                    design
+                  </span>
+                  , using the same alloy that spacecrafts use for missions to
+                  Mars.
+                </p>
+              </div>
+              <div className="flex-1 flex-center">
+                <p className="feature-text g_text">
+                  Titanium has one of the best strength-to-weight ratios of any
+                  metal, making these our{" "}
+                  <span className="text-white">lightest Pro models ever.</span>
+                  You'll notice the difference the moment you pick one up.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
