@@ -1,8 +1,20 @@
-# React + Vite
+## **Açıklama** :
+Bu proje, iPhone 15 Pro web sitesinin klonunu oluşturmayı amaçlamaktadır. Proje, JSM kanalındaki eğitim videolarını referans alarak kodlanmıştır. Kullandığım modeller, videolar ve görseller, söz konusu kanaldan alınmıştır. Yazılan kodların referansı ve esin kaynağı bahsi geçen kanaldır. Proje, herhangi bir kazanç elde etmeye yönelik değildir ve Apple ile resmi bir bağlantı söz konusu değildir..
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### **Önemli Not** :
+Bu çalışma sadece becerilerimi ve yeterliliğimi sergilemek amacıyla tasarlanmıştır. Apple’ın orijinal tasarımı ile resmi bir anlaşma ya da ticari ilişki söz konusu değildir. Tüm içerik referans olarak kullanılmıştır.
 
-Currently, two official plugins are available:
+**Kullanılan Teknolojiler**:
+* HTML5
+* CSS3
+- JavaScript
+- GSAP
+- Three.js
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Projenin Amacı**:
+* iPhone 15 Pro web sitesini kodlayarak; HTML, CSS ve React.js becerilerimi geliştirmek.
+* Modellerde Three.js , kullanıcı arayüzü ve animasyonlarda GSAP kullanarak web tasarımı yetkinliklerimi göstermek.
+
+
+***Sorumluluk Reddi***:
+Bu proje tamamen eğitim amaçlıdır ve herhangi bir ticari gelir elde etme amacı taşımamaktadır. Orijinal içerikler, eğitim ve öğrenme amaçlı olarak referans alınmıştır.
